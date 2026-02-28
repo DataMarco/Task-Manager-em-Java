@@ -1,5 +1,7 @@
 package taskmanager;
 import java.util.Scanner;
+import java.util.List;
+import taskmanager.model.StatusTarefa;
 import taskmanager.model.Tarefa;
 import taskmanager.service.GerenciadorTarefas;
 public class Main {
@@ -33,10 +35,16 @@ public class Main {
                     int escolha2 = leitor.nextInt();
                     switch (escolha2) {
                         case 1:
-                            gerenciador.mostrarPendentes();
+                            List<Tarefa> pendentes = gerenciador.mostrarPorStatus(StatusTarefa.PENDENTE);
+                            for (Tarefa tarefa : pendentes) {
+                                System.out.println(tarefa.getInfo());
+                            }
                             break;
                         case 2:
-                            gerenciador.motrarConcluidas();
+                            List<Tarefa> concluidas = gerenciador.mostrarPorStatus(StatusTarefa.CONCLUIDA);
+                            for (Tarefa tarefa : concluidas) {
+                                System.out.println(tarefa.getInfo());
+                            }
                             break;
                         case 3:
                             gerenciador.mostrarTarefas();
@@ -49,8 +57,8 @@ public class Main {
                 case 3:
                     System.out.println("Qual o id da tarefa?");
                     int idnovo = leitor.nextInt();
-                    gerenciador.encontrarId(idnovo);
-                    if (gerenciador.encontrarId(idnovo) != null) {
+                    Tarefa encontrar = gerenciador.encontrarId(idnovo);
+                    if (encontrar != null) {
                         gerenciador.marcarConcluida(idnovo);
                         System.out.println("Tarefa marcada como concluída.");
                     } else {

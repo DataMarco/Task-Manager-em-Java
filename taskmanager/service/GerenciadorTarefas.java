@@ -1,10 +1,11 @@
 package taskmanager.service;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Iterator;
 import taskmanager.model.StatusTarefa;
 import taskmanager.model.Tarefa;
 public class GerenciadorTarefas {
-    private ArrayList<Tarefa> tarefas = new ArrayList<>();
+    List<Tarefa> tarefas = new ArrayList<>();
 
     public void adicionarTarefa(Tarefa tarefa){
         tarefas.add(tarefa);
@@ -15,30 +16,18 @@ public class GerenciadorTarefas {
         for (Tarefa tarefa : tarefas) {
             System.out.println(tarefa.getInfo());
             i++;
-            System.out.println("Tarefas totais: "+i);
         }
+        System.out.println("Tarefas totais: "+i);
     }
 
-    public void motrarConcluidas(){
-        int i = 0;
-        for (Tarefa tarefa : tarefas){
-            if (tarefa.getStatus() == StatusTarefa.CONCLUIDA){
-                System.out.println(tarefa.getInfo());
-                i++;
-                System.out.println("Tarefas concluídas: "+i);
+    public List<Tarefa> mostrarPorStatus(StatusTarefa status){
+        List<Tarefa> filtradas = new ArrayList<>();
+        for (Tarefa tarefa : tarefas) {
+            if (tarefa.getStatus() == status) {
+                filtradas.add(tarefa);
             }
         }
-    }
-
-    public void mostrarPendentes(){
-        int i = 0;
-        for (Tarefa tarefa : tarefas){
-            if (tarefa.getStatus() == StatusTarefa.PENDENTE) {
-                System.out.println(tarefa.getInfo());
-                i++;
-                System.out.println("Tarefas pendentes: "+i);
-            }
-        }
+        return filtradas;
     }
 
     public Tarefa encontrarId(int id){
